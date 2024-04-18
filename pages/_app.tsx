@@ -2,7 +2,7 @@
 import { checkWindow } from "@/lib/functions/_helpers.lib";
 import { store } from "@/reduxtoolkit/store/store";
 import "@/styles/global.scss";
-import createEmotionCache from "@/themes/createEmotionCache";
+// import createEmotionCache from "@/themes/createEmotionCache";
 // import { EmotionCache } from "@emotion/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppContext, AppProps } from "next/app";
@@ -37,7 +37,7 @@ export interface CustomAppProps extends AppProps {
   // emotionCache?: EmotionCache;
 }
 
-const clientSideEmotionCache = createEmotionCache();
+// const clientSideEmotionCache = createEmotionCache();
 export default function CustomApp({
   Component,
   pageProps
