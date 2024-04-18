@@ -30,22 +30,16 @@ export default function TestimonialSection() {
     slidesToScroll: 1
   };
 
-  const {
-    data: testimonialInfo,
-    isLoading: testimonialLoading,
-    refetch: testimonialRefetch
-  } = useTestimonials(false);
+  const { data: testimonialInfo, refetch: testimonialRefetch } =
+    useTestimonials(false);
   console.log("testimonialInfo", testimonialInfo);
 
   useEffect(() => {
     testimonialRefetch();
   }, []);
 
-  const {
-    data: siteContentInfo,
-    isLoading: siteContentLoading,
-    refetch: siteContentRefetch
-  } = useSiteContents(false);
+  const { data: siteContentInfo, refetch: siteContentRefetch } =
+    useSiteContents(false);
   console.log("siteContentInfo", siteContentInfo);
 
   useEffect(() => {
