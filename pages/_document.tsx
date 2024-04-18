@@ -79,7 +79,9 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
         App: React.ComponentType<React.ComponentProps<AppType> & CustomAppProps>
       ) =>
         function EnhanceApp(props) {
-          return <App emotionCache={cache} {...props} />;
+          // return <App emotionCache={cache} {...props} />;
+
+          return <App {...props} />;
         }
     });
 
