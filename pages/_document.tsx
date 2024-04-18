@@ -13,7 +13,7 @@ import Document, {
   NextScript
 } from "next/document";
 import * as React from "react";
-import { CustomAppProps } from "./_app";
+// import { CustomAppProps } from "./_app";
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];
@@ -75,9 +75,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (
-        App: React.ComponentType<React.ComponentProps<AppType> & CustomAppProps>
-      ) =>
+      enhanceApp: (App: React.ComponentType<React.ComponentProps<AppType>>) =>
         function EnhanceApp(props) {
           // return <App emotionCache={cache} {...props} />;
 
