@@ -32,7 +32,6 @@ export default function TestimonialSection() {
 
   const { data: testimonialInfo, refetch: testimonialRefetch } =
     useTestimonials(false);
-  console.log("testimonialInfo", testimonialInfo);
 
   useEffect(() => {
     testimonialRefetch();
@@ -40,7 +39,6 @@ export default function TestimonialSection() {
 
   const { data: siteContentInfo, refetch: siteContentRefetch } =
     useSiteContents(false);
-  console.log("siteContentInfo", siteContentInfo);
 
   useEffect(() => {
     siteContentRefetch();
