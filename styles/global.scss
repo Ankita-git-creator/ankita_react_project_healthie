@@ -1,0 +1,233 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+@import "./abstracts/theme.module";
+
+:root {
+  @include printVariables();
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--bodyFontColor);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  padding: 0;
+  // font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto";
+  background-color: var(--white) !important;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: #f9f9f9;
+  border-radius: 44px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+  width: 6px;
+  height: 6px;
+  background: #220b60;
+  border-radius: 44px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #220b60;
+}
+#__next {
+  overflow-x: hidden;
+}
+
+.inputLabel {
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: capitalize;
+  color: #575757;
+  display: block;
+  margin-bottom: 8px;
+  @media (max-width: 599px) {
+    font-size: 12px;
+  }
+}
+.modalCloseBtn {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  filter: drop-shadow(0px 11px 12.1px rgba(34, 11, 96, 0.18));
+}
+.callDataModal {
+  .MuiDialogContent-root {
+    padding: 20px 16px;
+    @media (max-width: 599px) {
+      padding: 10px 10px;
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: #f9f9f9;
+    border-radius: 44px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    width: 6px;
+    height: 6px;
+    background: #220b60;
+    border-radius: 44px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #220b60;
+  }
+  .MuiPaper-root {
+    background: #ffffff;
+    box-shadow: 0px 44px 250px rgba(7, 65, 30, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    max-width: 700px;
+    width: 100%;
+    @media (max-width: 899px) {
+      max-height: 80vh;
+      height: auto;
+      margin: 15px;
+    }
+
+    @media (max-width: 599px) {
+      padding: 10px;
+    }
+    .wrapper_callListModa {
+      position: relative;
+      h2 {
+        text-align: center;
+        font-size: 22px;
+        text-transform: capitalize;
+        margin-bottom: 40px;
+
+        @media (max-width: 599px) {
+          margin-bottom: 20px;
+          font-size: 16px;
+        }
+      }
+      .phoneCallList {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -10px;
+        @media (max-width: 599px) {
+          flex-wrap: wrap;
+          margin: 0 -4px;
+        }
+        li {
+          width: 33.33%;
+          padding: 0 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          margin-bottom: 20px;
+
+          @media (max-width: 599px) {
+            padding: 0 4px;
+          }
+
+          @media (max-width: 374px) {
+            width: 50%;
+          }
+          p {
+            font-weight: 400;
+            font-size: 16px;
+            text-transform: capitalize;
+            color: #727272;
+
+            @media (max-width: 599px) {
+              font-size: 12px;
+            }
+          }
+          a {
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: underline;
+            text-transform: capitalize;
+            color: #220b60;
+            padding: 0;
+            min-width: auto;
+            background: transparent;
+            @media (max-width: 599px) {
+              font-size: 12px;
+            }
+            &:hover {
+              color: #418052;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+    .detailCallModal {
+      position: relative;
+      i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 122px;
+        height: 122px;
+        background: #ffffff;
+        border: 1px solid rgba(34, 11, 96, 0.07);
+        box-shadow: 0px 15px 26.4px -6px rgba(81, 38, 195, 0.12);
+        border-radius: 50%;
+        margin: 0 auto 44px;
+
+        @media (max-width: 599px) {
+          width: 70px;
+          height: 70px;
+          margin-bottom: 15px;
+          svg {
+            width: 35px;
+            height: 35px;
+          }
+        }
+      }
+      h2 {
+        font-weight: 600;
+        font-size: 22px;
+        text-align: center;
+        text-transform: capitalize;
+        color: #383838;
+        margin-bottom: 12px;
+
+        @media (max-width: 599px) {
+          font-size: 16px;
+          margin-bottom: 6px;
+        }
+      }
+      p {
+        font-weight: 400;
+        font-size: 16px;
+        text-align: center;
+        color: #646464;
+
+        @media (max-width: 599px) {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
