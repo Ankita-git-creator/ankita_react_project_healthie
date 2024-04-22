@@ -57,7 +57,6 @@ export default function RequestCallback() {
   };
 
   const submitForm = (data: Inputs) => {
-    console.log(data);
     handelModalCallOpen();
     reset({
       email: "",
