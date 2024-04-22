@@ -223,6 +223,16 @@ export default function Header() {
               >
                 <Typography variant="caption">call us now</Typography>
               </CustomButtonPrimary>
+              <CustomButtonPrimary
+                variant="contained"
+                color="secondary"
+                className="call_btnsection"
+                onClick={() => {
+                  router.push("/blog");
+                }}
+              >
+                <Typography variant="body1">Blog</Typography>
+              </CustomButtonPrimary>
             </Box>
           </Toolbar>
         </Container>

@@ -49,7 +49,9 @@ export const primaryColors = {
   placeholderColor: "#B1B1B1",
   color979797: "#979797",
   colorF9F9F9: "#F9F9F9",
-  colorF3F4F8: "#F3F4F8"
+  colorF3F4F8: "#F3F4F8",
+
+  color1976d2: "#1976d2"
 };
 
 export const pallete = (mode: PaletteMode): PaletteOptions => {

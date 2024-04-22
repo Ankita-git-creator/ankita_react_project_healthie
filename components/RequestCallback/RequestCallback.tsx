@@ -4,15 +4,63 @@ import InputFieldCommon from "@/ui/CommonInput/CommonInput";
 import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
 import ModalIconOne from "@/ui/Icons/ModalIconOne";
 import MuiModalWrapper from "@/ui/Modal/MuiModalWrapper";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import React from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+
+type Inputs = {
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  state: string;
+  zip: number;
+};
+
+const schema = yup.object({
+  email: yup.string().email(),
+  first_name: yup.string().required(),
+  last_name: yup.string().required(),
+  phone: yup
+    .string()
+    .matches(
+      /^\(\d{3}\) \d{3}-\d{4}$/,
+      "Phone number must be in the format (XXX) XXX-XXXX"
+    )
+    .required(),
+  state: yup.string().required(),
+  zip: yup.number().required()
+});
 
 export default function RequestCallback() {
   const [callListDetails, setCallListDetails] = React.useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema)
+  });
+
+  const submitForm = (data: Inputs) => {
+    console.log(data);
+    handelModalCallOpen();
+    reset({
+      email: "",
+      first_name: "",
+      last_name: "",
+      phone: "",
+      state: "",
+      zip: 0
+    });
+  };
 
   const handelModalCallOpen = () => {
     setCallListDetails(true);
@@ -38,49 +86,73 @@ export default function RequestCallback() {
                     placeholder="John"
                     isLabel
                     labelText="first name*"
+                    {...register("first_name")}
                   />
+                  <Typography variant="body2" color="text.secondary">
+                    {errors?.first_name?.message}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} xs={6}>
                   <InputFieldCommon
                     placeholder="Duo"
                     isLabel
                     labelText="Last name*"
+                    {...register("last_name")}
                   />
+                  <Typography variant="body2" color="text.secondary">
+                    {errors?.last_name?.message}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} xs={12}>
                   <InputFieldCommon
                     placeholder="(406) 555-0120"
                     isLabel
                     labelText="phone number*"
+                    {...register("phone")}
                   />
+                  <Typography variant="body2" color="text.secondary">
+                    {errors?.phone?.message}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} xs={12}>
                   <InputFieldCommon
                     placeholder="alma.lawson@example.com"
                     isLabel
                     labelText="email (Optional)"
+                    {...register("email")}
                   />
+                  <Typography variant="body2" color="text.secondary">
+                    {errors?.email?.message}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} xs={6}>
                   <InputFieldCommon
                     placeholder="12345"
                     isLabel
                     labelText="Zip code*"
+                    {...register("zip")}
                   />
+                  <Typography variant="body2" color="text.secondary">
+                    {errors?.zip?.message}
+                  </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} xs={6}>
                   <InputFieldCommon
                     placeholder="State Name"
                     isLabel
                     labelText="State*"
+                    {...register("state")}
                   />
+                  <Typography variant="body2" color="text.secondary">
+                    {errors?.state?.message}
+                  </Typography>
                 </Grid>
               </Grid>
               <Box className="btnWrap">
                 <CustomButtonPrimary
                   variant="contained"
                   color="primary"
-                  onClick={handelModalCallOpen}
+                  onClick={handleSubmit(submitForm)}
                 >
                   <Typography variant="body1">Submit</Typography>
                 </CustomButtonPrimary>

@@ -23,5 +23,6 @@ export default {
   ticArrow: "/assets/images/ticArrow.svg",
   lineShape2: "/assets/images/lineShape2.png",
   shapeImgNew2: "/assets/images/shapeImgNew2.png",
-  shapeImgNew3: "/assets/images/shapeImgNew3.png"
+  shapeImgNew3: "/assets/images/shapeImgNew3.png",
+  banner_1: "/assets/images/banner_1.png"
 };
