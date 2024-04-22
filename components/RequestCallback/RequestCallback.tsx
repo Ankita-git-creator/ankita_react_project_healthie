@@ -49,6 +49,13 @@ export default function RequestCallback() {
     resolver: yupResolver(schema)
   });
 
+  const handelModalCallOpen = () => {
+    setCallListDetails(true);
+  };
+  const handelModalCallClose = () => {
+    setCallListDetails(false);
+  };
+
   const submitForm = (data: Inputs) => {
     console.log(data);
     handelModalCallOpen();
@@ -62,12 +69,6 @@ export default function RequestCallback() {
     });
   };
 
-  const handelModalCallOpen = () => {
-    setCallListDetails(true);
-  };
-  const handelModalCallClose = () => {
-    setCallListDetails(false);
-  };
   return (
     <>
       <RequestCallbackWrapper id="free-quote">
