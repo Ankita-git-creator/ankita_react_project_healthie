@@ -56,7 +56,7 @@ export default function RequestCallback() {
     setCallListDetails(false);
   };
 
-  const submitForm = (data: Inputs) => {
+  const submitForm = () => {
     handelModalCallOpen();
     reset({
       email: "",
