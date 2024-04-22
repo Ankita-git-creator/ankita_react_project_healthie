@@ -1,16 +1,16 @@
 import assest from "@/json/assest";
 import DotIcon from "@/ui/Icons/DotIcon";
 import StarIcon from "@/ui/Icons/StarIcon";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Grid,
-  Typography
-} from "@mui/material";
-import { Box, Container, styled } from "@mui/system";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/system";
 
 export const BannerWrapper = styled(Box)`
   width: 100%;
