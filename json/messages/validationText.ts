@@ -5,10 +5,13 @@ export default {
     email_format: "Email format is not correct",
     enter_password: "Enter password",
     phone: "Enter phone",
+    phone_format: "Phone number must be in the format (XXX) XXX-XXXX",
     username: "Enter username",
     fullName: "Enter Full Name",
     first_name: "Enter First Name",
-    last_name: "Enter Last Name"
+    last_name: "Enter Last Name",
+    state: "Enter State",
+    zip: "Enter Zip Code"
   },
   warn: {},
   info: {}

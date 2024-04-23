@@ -1,4 +1,6 @@
 import assest from "@/json/assest";
+import validationText from "@/json/messages/validationText";
+import { emailRegex, phoneRegex } from "@/lib/regex";
 import { RequestCallbackWrapper } from "@/styles/StyledComponents/RequestCallbackWrapper";
 import InputFieldCommon from "@/ui/CommonInput/CommonInput";
 import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
@@ -24,19 +26,27 @@ type Inputs = {
 };
 
 const schema = yup.object({
-  email: yup.string().email(),
-  first_name: yup.string().required(),
-  last_name: yup.string().required(),
+  email: yup
+    .string()
+    .trim()
+    .lowercase()
+    .email()
+    .label("Email")
+    .required()
+    .matches(emailRegex, validationText.error.email_format),
+  first_name: yup.string().trim().required(),
+  last_name: yup.string().trim().required(),
   phone: yup
     .string()
-    .matches(
-      /^\(\d{3}\) \d{3}-\d{4}$/,
-      "Phone number must be in the format (XXX) XXX-XXXX"
-    )
-    .required(),
-  state: yup.string().required(),
+    .trim()
+    .label("Phone")
+    .required()
+    .matches(phoneRegex, validationText.error.phone_format),
+  state: yup.string().trim().required(),
   zip: yup.number().required()
 });
+
+export type SchemaFormData = yup.InferType<typeof schema>;
 
 export default function RequestCallback() {
   const [callListDetails, setCallListDetails] = React.useState(false);
@@ -45,7 +55,7 @@ export default function RequestCallback() {
     handleSubmit,
     formState: { errors },
     reset
-  } = useForm<Inputs>({
+  } = useForm<SchemaFormData>({
     resolver: yupResolver(schema)
   });
 
@@ -88,8 +98,9 @@ export default function RequestCallback() {
                     labelText="first name*"
                     {...register("first_name")}
                   />
-                  <Typography variant="body2" color="text.secondary">
-                    {errors?.first_name?.message}
+                  <Typography variant="body2" color="red">
+                    {errors?.first_name?.type === "required" &&
+                      validationText.error.first_name}
                   </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} xs={6}>
@@ -99,8 +110,9 @@ export default function RequestCallback() {
                     labelText="Last name*"
                     {...register("last_name")}
                   />
-                  <Typography variant="body2" color="text.secondary">
-                    {errors?.last_name?.message}
+                  <Typography variant="body2" color="red">
+                    {errors?.last_name?.type === "required" &&
+                      validationText.error.last_name}
                   </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} xs={12}>
@@ -110,8 +122,11 @@ export default function RequestCallback() {
                     labelText="phone number*"
                     {...register("phone")}
                   />
-                  <Typography variant="body2" color="text.secondary">
-                    {errors?.phone?.message}
+                  <Typography variant="body2" color="red">
+                    {errors?.phone?.type === "required" &&
+                      validationText.error.phone}
+                    {errors?.phone?.type === "matches" &&
+                      validationText.error.phone_format}
                   </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} xs={12}>
@@ -121,8 +136,9 @@ export default function RequestCallback() {
                     labelText="email (Optional)"
                     {...register("email")}
                   />
-                  <Typography variant="body2" color="text.secondary">
-                    {errors?.email?.message}
+                  <Typography variant="body2" color="red">
+                    {errors?.email?.type === "email" &&
+                      validationText.error.email_format}
                   </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} xs={6}>
@@ -132,8 +148,11 @@ export default function RequestCallback() {
                     labelText="Zip code*"
                     {...register("zip")}
                   />
-                  <Typography variant="body2" color="text.secondary">
-                    {errors?.zip?.message}
+                  <Typography variant="body2" color="red">
+                    {/* {errors?.zip?.type === "required" &&
+                      validationText.error.zip} */}
+                    {errors?.zip?.type === "typeError" &&
+                      validationText.error.zip}
                   </Typography>
                 </Grid>
                 <Grid item lg={6} md={6} xs={6}>
@@ -143,8 +162,9 @@ export default function RequestCallback() {
                     labelText="State*"
                     {...register("state")}
                   />
-                  <Typography variant="body2" color="text.secondary">
-                    {errors?.state?.message}
+                  <Typography variant="body2" color="red">
+                    {errors?.state?.type === "required" &&
+                      validationText.error.state}
                   </Typography>
                 </Grid>
               </Grid>
