@@ -46,8 +46,6 @@ const schema = yup.object({
   zip: yup.number().required()
 });
 
-export type SchemaFormData = yup.InferType<typeof schema>;
-
 export default function RequestCallback() {
   const [callListDetails, setCallListDetails] = React.useState(false);
   const {
@@ -55,7 +53,7 @@ export default function RequestCallback() {
     handleSubmit,
     formState: { errors },
     reset
-  } = useForm<SchemaFormData>({
+  } = useForm<Inputs>({
     resolver: yupResolver(schema)
   });
 
