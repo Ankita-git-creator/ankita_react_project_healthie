@@ -17,10 +17,14 @@ export const BannerWrapper = styled(Box)`
   padding: 50px 0 50px;
 `;
 
-const StyledContainer = styled(Container)`
+const MainContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+const StyledContainer = styled(Container)`
+  padding: 0 200px 0 !important;
 `;
 
 const StyledCard = styled(Card)`
@@ -91,97 +95,99 @@ function Index() {
 
   return (
     <BannerWrapper>
-      <StyledContainer>
-        <StyledCard>
-          <CardMedia
-            component="img"
-            alt="green iguana"
-            height="300"
-            image={assest.banner_1}
-          />
-          <CardActions>
-            <Button
-              variant="contained"
-              size="small"
-              startIcon={<StarIcon />}
-              sx={buttonStyles}
-            >
-              Featured
-            </Button>
-            <Button
-              sx={{ color: "#5c5b5b", textTransform: "none" }}
-              size="small"
-            >
-              Labelbox
-            </Button>
-            <Button
-              sx={{ color: "#5c5b5b", textTransform: "none" }}
-              size="small"
-              startIcon={<DotIcon />}
-            >
-              November 07, 2021
-            </Button>
-          </CardActions>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Stop labelling data blindly
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry&apos;s standard dummy
-              text ever since the 1500s, when an unknown printer took a galley
-              of type and scrambled it to make a type specimen book.
-            </Typography>
-          </CardContent>
-        </StyledCard>
-        <Grid container spacing={4}>
-          {blogArray.map((item) => (
-            <Grid item xs={6} md={6} key={item.id}>
-              <StyledCard>
-                <CardMedia
-                  component="img"
-                  alt="green iguana"
-                  height="200"
-                  image={item.image}
-                />
-                <CardActions>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    startIcon={<StarIcon />}
-                    sx={buttonStyles}
-                  >
-                    {item.featured}
-                  </Button>
-                </CardActions>
-                <CardActions>
-                  <Button
-                    sx={{ color: "#5c5b5b", textTransform: "none" }}
-                    size="small"
-                  >
-                    {item.labelbox}
-                  </Button>
-                  <Button
-                    sx={{ color: "#5c5b5b", textTransform: "none" }}
-                    size="small"
-                    startIcon={<DotIcon />}
-                  >
-                    {item.date}
-                  </Button>
-                </CardActions>
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {item.subtitle}
-                  </Typography>
-                </CardContent>
-              </StyledCard>
-            </Grid>
-          ))}
-        </Grid>
-      </StyledContainer>
+      <MainContainer>
+        <StyledContainer>
+          <StyledCard>
+            <CardMedia
+              component="img"
+              alt="green iguana"
+              height="300"
+              image={assest.banner_1}
+            />
+            <CardActions>
+              <Button
+                variant="contained"
+                size="small"
+                startIcon={<StarIcon />}
+                sx={buttonStyles}
+              >
+                Featured
+              </Button>
+              <Button
+                sx={{ color: "#5c5b5b", textTransform: "none" }}
+                size="small"
+              >
+                Labelbox
+              </Button>
+              <Button
+                sx={{ color: "#5c5b5b", textTransform: "none" }}
+                size="small"
+                startIcon={<DotIcon />}
+              >
+                November 07, 2021
+              </Button>
+            </CardActions>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                Stop labelling data blindly
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry&apos;s standard
+                dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book.
+              </Typography>
+            </CardContent>
+          </StyledCard>
+          <Grid container spacing={4}>
+            {blogArray.map((item) => (
+              <Grid item xs={6} md={6} key={item.id}>
+                <StyledCard>
+                  <CardMedia
+                    component="img"
+                    alt="green iguana"
+                    height="200"
+                    image={item.image}
+                  />
+                  <CardActions>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      startIcon={<StarIcon />}
+                      sx={buttonStyles}
+                    >
+                      {item.featured}
+                    </Button>
+                  </CardActions>
+                  <CardActions>
+                    <Button
+                      sx={{ color: "#5c5b5b", textTransform: "none" }}
+                      size="small"
+                    >
+                      {item.labelbox}
+                    </Button>
+                    <Button
+                      sx={{ color: "#5c5b5b", textTransform: "none" }}
+                      size="small"
+                      startIcon={<DotIcon />}
+                    >
+                      {item.date}
+                    </Button>
+                  </CardActions>
+                  <CardContent>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {item.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {item.subtitle}
+                    </Typography>
+                  </CardContent>
+                </StyledCard>
+              </Grid>
+            ))}
+          </Grid>
+        </StyledContainer>
+      </MainContainer>
     </BannerWrapper>
   );
 }
