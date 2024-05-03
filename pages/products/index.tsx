@@ -1,9 +1,14 @@
 import { useCategoryList } from "@/hooks/react-query/query-hooks/productQuery.hooks";
-import { SearchList } from "@/interface/products.interfaces";
 import { primaryColors } from "@/themes/_muiPalette";
 import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActionArea from "@mui/material/CardActionArea";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
@@ -13,6 +18,7 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export const ProductWrapper = styled(Box)`
@@ -46,208 +52,92 @@ export const PriceContainer = styled(Container)`
 `;
 
 function products() {
+  // Category List
   const { data: categoryList, refetch: categoryListRefetch } =
     useCategoryList(false);
   console.log("categoryList", categoryList);
-
   useEffect(() => {
     categoryListRefetch();
   }, []);
 
-  // const { data: searchList, refetch: searchListRefetch } = useSearchList(
-  //   false,
-  //   {
-  //     query: "abc"
-  //   }
-  // );
-
-  const url = "https://real-time-amazon-data.p.rapidapi.com";
-  const api_key = "19c67eb493msh9567d55b91e4b7dp1241e8jsne64a27e3cc42";
-
-  // console.log("searchList", searchList);
-
-  // useEffect(() => {
-  //   searchListRefetch();
-  // }, []);
-
+  // Search List
   const rangeArray = [100, 200, 300, 400, 500];
-
-  const countryList = [
-    {
-      name: "United States",
-      code: "US"
-    },
-    {
-      name: "Australia",
-      code: "AU"
-    },
-    {
-      name: "Brazil",
-      code: "BR"
-    },
-    {
-      name: "Canada",
-      code: "CA"
-    },
-    {
-      name: "China",
-      code: "CN"
-    },
-    {
-      name: "France",
-      code: "FR"
-    },
-    {
-      name: "Germany",
-      code: "DE"
-    },
-    {
-      name: "India",
-      code: "IN"
-    },
-    {
-      name: "Italy",
-      code: "IT"
-    },
-    {
-      name: "Mexico",
-      code: "MX"
-    },
-    {
-      name: "Netherlands",
-      code: "NL"
-    },
-    {
-      name: "Singapore",
-      code: "SG"
-    },
-    {
-      name: "Spain",
-      code: "ES"
-    },
-    {
-      name: "Turkey",
-      code: "TR"
-    },
-    {
-      name: "United Arab Emirates",
-      code: "AE"
-    },
-    {
-      name: "United Kingdom",
-      code: "GB"
-    },
-    {
-      name: "Japan",
-      code: "JP"
-    },
-    {
-      name: "Saudi Arabia",
-      code: "SA"
-    },
-    {
-      name: "Poland",
-      code: "PL"
-    },
-    {
-      name: "Sweden",
-      code: "SE"
-    },
-    {
-      name: "Belgium",
-      code: "BE"
-    },
-    {
-      name: "Egypt",
-      code: "EG"
-    }
-  ];
-
-  const productCondArr = ["NEW", "USED", "RENEWED", "COLLECTIBLE"];
-
-  const sortByArr = [
-    "RELEVANCE",
-    "LOWEST_PRICE",
-    "HIGHEST_PRICE",
-    "REVIEWS",
-    "NEWEST",
-    "BEST_SELLERS"
-  ];
-
   const [productName, setProductName] = useState("");
-  const getProductName = (e: any) => {
-    console.log("sort_by", e.target.value);
-    setProductName(e.target.value);
-  };
-
-  const [categoryId, setCategoryId] = useState("");
-  const categoryCahnge = (e: any) => {
-    console.log("category_id", e.target.value);
-    setCategoryId(e.target.value);
-  };
-
+  const getProductName = (e: any) => setProductName(e.target.value);
+  const [productPrice, setProductPrice] = useState("");
+  const getProductPrice = (e: any) => setProductPrice(e.target.value);
+  const [categoryid, setCategoryId] = useState(0);
+  const categoryCahnge = (e: any) => setCategoryId(Number(e.target.value));
   const [minPrice, setMinPrice] = useState(0);
-  const minCahnge = (e: any) => {
-    console.log("min_price", e.target.value);
-    setMinPrice(e.target.value);
-  };
-
+  const minCahnge = (e: any) => setMinPrice(e.target.value);
   const [maxPrice, setMaxPrice] = useState(0);
-  const maxCahnge = (e: any) => {
-    console.log("max_price", e.target.value);
-    setMaxPrice(e.target.value);
+  const maxCahnge = (e: any) => setMaxPrice(e.target.value);
+  const url = "https://api.escuelajs.co/api/v1";
+
+  type SearchParams = {
+    title?: string;
+    price?: number;
+    price_min?: number;
+    price_max?: number;
+    categoryId?: number;
   };
 
-  const [countryCode, setCountryCode] = useState("");
-  const countryCahnge = (e: any) => {
-    console.log("country", e.target.value);
-    setCountryCode(e.target.value);
+  const getSearchList = async (params: SearchParams) => {
+    try {
+      const res = await axios.get(`${url}/products`, { params });
+      return res.data;
+    } catch (error: any) {
+      throw new Error("Error occurred while fetching data:", error);
+    }
   };
 
-  const [prodCondition, setProdCondition] = useState("");
-  const prodCondCahnge = (e: any) => {
-    console.log("product_condition", e.target.value);
-    setProdCondition(e.target.value);
+  const [searchListData, setSearchListData] = useState<any[]>([]);
+  const [paramBody, setParamBody] = useState<SearchParams>({
+    title: "",
+    price: 0,
+    price_min: 0,
+    price_max: 0,
+    categoryId: 0
+  });
+  const { title, price, price_min, price_max, categoryId } = paramBody;
+
+  useEffect(() => {
+    setParamBody((prevParamBody) => ({
+      ...prevParamBody,
+      title: productName,
+      price: Number(productPrice),
+      price_min: minPrice,
+      price_max: maxPrice,
+      categoryId: categoryid
+    }));
+  }, [productName, productPrice, minPrice, maxPrice, categoryid]);
+
+  const handleApplyFilters = async () => {
+    try {
+      const response = await getSearchList(paramBody);
+      setSearchListData(response);
+
+      setProductName("");
+      setProductPrice("");
+      setMinPrice(0);
+      setMaxPrice(0);
+      setCategoryId(0);
+    } catch (error) {
+      console.error("Error occurred while fetching data:", error);
+    }
   };
 
-  const [sortBy, setSortBy] = useState("");
-  const sortByCahnge = (e: any) => {
-    console.log("sort_by", e.target.value);
-    setSortBy(e.target.value);
-  };
-
-  const getSearchList = async (
-    query: string | "",
-    country?: string | "",
-    category_id?: string | "",
-    sort_by?: string | "",
-    min_price?: number | 0,
-    max_price?: number | 0,
-    product_condition?: string | ""
-  ) => {
-    const res = await axios.get<SearchList>(`${url}/search`, {
-      headers: {
-        "X-RapidAPI-Key": `${api_key}`,
-        "X-RapidAPI-Host": "real-time-amazon-data.p.rapidapi.com"
-      },
-      params: {
-        query: productName,
-        country: countryCode,
-        category_id: categoryId,
-        sort_by: sortBy,
-        min_price: minPrice,
-        max_price: maxPrice,
-        product_condition: prodCondition
-      }
-    });
-    return res;
+  // Product Details
+  const router = useRouter();
+  const handleDetails = (id: any) => {
+    router.push(`/details/${id}`);
   };
 
   return (
     <ProductWrapper>
       <MainContainer>
         <Grid container spacing={2}>
-          <Grid item xs={3} md={3}>
+          <Grid item xs={4} md={4}>
             <StyledContainer>
               <Typography variant="body1">Filters</Typography>
             </StyledContainer>
@@ -258,6 +148,17 @@ function products() {
                 label="Search Products"
                 variant="standard"
                 onInput={getProductName}
+                value={productName}
+              />
+            </StyledContainer>
+            <DividedContainer></DividedContainer>
+            <StyledContainer>
+              <TextField
+                id="standard-basic"
+                label="Search By Price"
+                variant="standard"
+                onInput={getProductPrice}
+                value={productPrice}
               />
             </StyledContainer>
             <DividedContainer></DividedContainer>
@@ -275,8 +176,9 @@ function products() {
                   id="demo-simple-select-standard"
                   label="Category"
                   onChange={categoryCahnge}
+                  value={categoryId}
                 >
-                  {categoryList?.map((item, index) => (
+                  {categoryList?.map((item: any) => (
                     <MenuItem value={item?.id}>{item?.name}</MenuItem>
                   ))}
                 </Select>
@@ -293,12 +195,12 @@ function products() {
                   >
                     Min
                   </InputLabel>
-
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
                     label="Min"
                     onChange={minCahnge}
+                    value={minPrice}
                   >
                     {rangeArray.map((item, index) => (
                       <MenuItem value={item}>{item}</MenuItem>
@@ -313,12 +215,12 @@ function products() {
                   >
                     Max
                   </InputLabel>
-
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
                     label="Max"
                     onChange={maxCahnge}
+                    value={maxPrice}
                   >
                     {rangeArray.map((item, index) => (
                       <MenuItem value={item}>{item}</MenuItem>
@@ -329,99 +231,81 @@ function products() {
             </StyledContainer>
             <DividedContainer></DividedContainer>
             <StyledContainer>
-              <Typography variant="body2">Countries</Typography>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-                <InputLabel
-                  id="demo-simple-select-standard-label"
-                  sx={{ fontSize: 13 }}
-                >
-                  Country
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  label="Country"
-                  onChange={countryCahnge}
-                >
-                  {countryList.map((item, index) => (
-                    <MenuItem value={item?.code}>{item?.name}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </StyledContainer>
-            <DividedContainer></DividedContainer>
-            <StyledContainer>
-              <Typography variant="body2">Product Conditions</Typography>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-                <InputLabel
-                  id="demo-simple-select-standard-label"
-                  sx={{ fontSize: 13 }}
-                >
-                  Product Condition
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  label="Product Condition"
-                  onChange={prodCondCahnge}
-                >
-                  {productCondArr.map((item, index) => (
-                    <MenuItem value={item}>{item}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </StyledContainer>
-            <DividedContainer></DividedContainer>
-            <StyledContainer>
-              <Typography variant="body2">Sort By</Typography>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-                <InputLabel
-                  id="demo-simple-select-standard-label"
-                  sx={{ fontSize: 13 }}
-                >
-                  Sort By
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  label="Sort By"
-                  onChange={sortByCahnge}
-                >
-                  {sortByArr.map((item, index) => (
-                    <MenuItem value={item}>{item}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </StyledContainer>
-            <DividedContainer></DividedContainer>
-            <StyledContainer>
               <CustomButtonPrimary
                 variant="contained"
                 color="secondary"
                 className="call_btnsection"
                 size="small"
-                onClick={async () => {
-                  try {
-                    const response = await getSearchList(
-                      productName,
-                      countryCode,
-                      categoryId,
-                      sortBy,
-                      minPrice,
-                      maxPrice,
-                      prodCondition
-                    );
-                    console.log(response);
-                  } catch (error) {
-                    console.error("Error occurred while fetching data:", error);
-                  }
-                }}
+                onClick={handleApplyFilters}
               >
                 <Typography variant="body1">Apply Filters</Typography>
               </CustomButtonPrimary>
             </StyledContainer>
           </Grid>
-          <Grid item xs={9} md={9}></Grid>
+          <Grid item xs={8} md={8}>
+            <StyledContainer>
+              <Grid container spacing={4}>
+                {searchListData.length > 0 ? (
+                  searchListData.map((item: any, index: number) => (
+                    <Grid item xs={12} md={6} key={index}>
+                      <Card>
+                        <CardActionArea>
+                          <CardMedia
+                            component="img"
+                            height="140"
+                            image={item?.images && item.images[0]}
+                            alt={item?.title || "No Title"}
+                          />
+                          <CardContent>
+                            <Typography
+                              gutterBottom
+                              variant="h5"
+                              component="div"
+                            >
+                              {item?.title || "No Title"}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              {item?.description || "No Description"}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                              style={{
+                                marginTop: 10,
+                                fontSize: 16,
+                                fontWeight: 500,
+                                color: "black"
+                              }}
+                            >
+                              Price: {item?.price || "N/A"}
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                          <Button
+                            size="small"
+                            color="primary"
+                            onClick={() => handleDetails(item?.id)}
+                          >
+                            Details
+                          </Button>
+                        </CardActions>
+                      </Card>
+                    </Grid>
+                  ))
+                ) : (
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    style={{ marginTop: 40, marginLeft: 40 }}
+                  >
+                    {"No data found"}
+                  </Typography>
+                )}
+              </Grid>
+            </StyledContainer>
+          </Grid>
         </Grid>
       </MainContainer>
     </ProductWrapper>

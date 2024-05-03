@@ -1,49 +1,51 @@
 // CategoryList
 
-export interface CategoryList {
-  status: string;
-  request_id: string;
-  data: Daum[];
-}
+export type CategoryList = Root2[];
 
-export interface Daum {
+export interface Root2 {
+  id: number;
   name: string;
-  id: string;
+  image: string;
+  creationAt: string;
+  updatedAt: string;
 }
 
 // SearchList
 
-export interface SearchList {
-  status: string;
-  request_id: string;
-  data: Data;
+export type SearchList = Root2[];
+
+export interface Root2 {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  images: string[];
+  creationAt: string;
+  updatedAt: string;
+  category: Category;
 }
 
-export interface Data {
-  total_products: number;
-  country: string;
-  domain: string;
-  products: Product[];
+export interface Category {
+  id: number;
+  name: string;
+  image: string;
+  creationAt: string;
+  updatedAt: string;
 }
 
-export interface Product {
-  asin: string;
-  product_title: string;
-  product_price: string;
-  unit_price?: string;
-  unit_count?: number;
-  product_original_price?: string;
-  currency: string;
-  product_star_rating: string;
-  product_num_ratings: number;
-  product_url: string;
-  product_photo: string;
-  product_num_offers: any;
-  product_minimum_offer_price: string;
-  is_best_seller: boolean;
-  is_amazon_choice: boolean;
-  is_prime: boolean;
-  climate_pledge_friendly: boolean;
-  sales_volume: string;
-  delivery: string;
+// Product Details
+
+export interface ProductDetails {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: Category;
+  images: string[];
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  image: string;
 }

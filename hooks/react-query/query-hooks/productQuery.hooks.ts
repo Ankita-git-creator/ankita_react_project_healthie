@@ -13,7 +13,7 @@ export const useCategoryList = (
     onSuccess,
     onError,
     refetchOnWindowFocus: false,
-    select: (data) => data?.data?.data ?? []
+    select: (data) => data?.data ?? []
   });
 
 // search list
@@ -23,13 +23,9 @@ export const useCategoryList = (
 //   onError: any = () => {}
 // ) =>
 //   useQuery(
-//     [GET_SEARCH_LIST],
-//     (context) => getSearchList({ query: context.queryKey[0] }),
+
 //     {
-//       enabled,
-//       onSuccess,
-//       onError,
-//       refetchOnWindowFocus: false,
-//       select: (data) => data?.data?.data ?? []
+//       queryFn:(context) => getSearchList()
 //     }
+
 //   );

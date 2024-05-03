@@ -2,6 +2,7 @@
 const withPWA = require("next-pwa");
 const path = require("path");
 const runtimeCaching = require("next-pwa/cache");
+const { hostname } = require("os");
 
 module.exports = withPWA({
   pwa: {
@@ -21,6 +22,11 @@ module.exports = withPWA({
       {
         protocol: "https",
         hostname: "healthie.dedicateddevelopers.us",
+        port: ""
+      },
+      {
+        protocol: "https",
+        hostname: "i.imgur.com",
         port: ""
       }
     ]
