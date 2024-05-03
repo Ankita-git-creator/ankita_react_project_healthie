@@ -256,9 +256,8 @@ function Products() {
           <Grid item xs={8} md={8}>
             <StyledContainer>
               <Grid container spacing={4}>
-                {isloading ? (
-                  <Loader />
-                ) : searchListData.length > 0 ? (
+                {isloading && <Loader />}
+                {!isloading && searchListData.length > 0 ? (
                   searchListData.map((item: any) => (
                     <Grid item xs={12} md={6} key={item.id}>
                       <Card>
