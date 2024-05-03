@@ -32,8 +32,6 @@ const Details = () => {
   const router = useRouter();
   const [productDetails, setProductDetails] = useState<any>({});
 
-  console.log(router.query);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,17 +39,13 @@ const Details = () => {
           `https://api.escuelajs.co/api/v1/products/${router.query.id}`
         );
         setProductDetails(res.data);
-      } catch (error) {
-        console.error("Failed to fetch product details:", error);
-      }
+      } catch (error) {}
     };
 
     if (router.query.id) {
       fetchData();
     }
   }, [router.query.id]);
-
-  console.log(productDetails);
 
   return (
     <ProductWrapper>

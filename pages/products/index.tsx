@@ -55,7 +55,6 @@ function products() {
   // Category List
   const { data: categoryList, refetch: categoryListRefetch } =
     useCategoryList(false);
-  console.log("categoryList", categoryList);
   useEffect(() => {
     categoryListRefetch();
   }, []);
@@ -122,9 +121,7 @@ function products() {
       setMinPrice(0);
       setMaxPrice(0);
       setCategoryId(0);
-    } catch (error) {
-      console.error("Error occurred while fetching data:", error);
-    }
+    } catch (error) {}
   };
 
   // Product Details
