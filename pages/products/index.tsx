@@ -244,7 +244,7 @@ function Products() {
             <StyledContainer>
               <Grid container spacing={4}>
                 {searchListData.length > 0 ? (
-                  searchListData.map((item: any, index: number) => (
+                  searchListData.map((item: any) => (
                     <Grid item xs={12} md={6}>
                       <Card>
                         <CardActionArea>
