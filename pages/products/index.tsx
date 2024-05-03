@@ -51,7 +51,7 @@ export const PriceContainer = styled(Container)`
   padding: 0 !important;
 `;
 
-function products() {
+function Products() {
   // Category List
   const { data: categoryList, refetch: categoryListRefetch } =
     useCategoryList(false);
@@ -112,16 +112,17 @@ function products() {
   }, [productName, productPrice, minPrice, maxPrice, categoryid]);
 
   const handleApplyFilters = async () => {
-    try {
-      const response = await getSearchList(paramBody);
-      setSearchListData(response);
+    const response = await getSearchList(paramBody);
+    setSearchListData(response);
 
-      setProductName("");
-      setProductPrice("");
-      setMinPrice(0);
-      setMaxPrice(0);
-      setCategoryId(0);
-    } catch (error) {}
+    setProductName("");
+    setProductPrice("");
+    setMinPrice(0);
+    setMaxPrice(0);
+    setCategoryId(0);
+    // try {
+
+    // } catch (error) {}
   };
 
   // Product Details
@@ -309,4 +310,4 @@ function products() {
   );
 }
 
-export default products;
+export default Products;

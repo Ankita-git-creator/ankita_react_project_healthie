@@ -34,12 +34,13 @@ const Details = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.escuelajs.co/api/v1/products/${router.query.id}`
-        );
-        setProductDetails(res.data);
-      } catch (error) {}
+      const res = await axios.get(
+        `https://api.escuelajs.co/api/v1/products/${router.query.id}`
+      );
+      setProductDetails(res.data);
+      // try {
+
+      // } catch (error) {}
     };
 
     if (router.query.id) {
