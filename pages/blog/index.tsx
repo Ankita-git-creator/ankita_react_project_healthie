@@ -104,7 +104,7 @@ function Index() {
               height="300"
               image={assest.banner_1}
             />
-            <CardActions>
+            <CardActions style={{ paddingLeft: 0 }}>
               <Button
                 variant="contained"
                 size="small"
@@ -127,7 +127,7 @@ function Index() {
                 November 07, 2021
               </Button>
             </CardActions>
-            <CardContent>
+            <CardContent style={{ paddingLeft: 0 }}>
               <Typography gutterBottom variant="h5" component="div">
                 Stop labelling data blindly
               </Typography>
@@ -149,7 +149,7 @@ function Index() {
                     height="200"
                     image={item.image}
                   />
-                  <CardActions>
+                  <CardActions style={{ paddingLeft: 0 }}>
                     <Button
                       variant="contained"
                       size="small"
@@ -159,7 +159,7 @@ function Index() {
                       {item.featured}
                     </Button>
                   </CardActions>
-                  <CardActions>
+                  <CardActions style={{ paddingLeft: 0 }}>
                     <Button
                       sx={{ color: "#5c5b5b", textTransform: "none" }}
                       size="small"
@@ -174,7 +174,7 @@ function Index() {
                       {item.date}
                     </Button>
                   </CardActions>
-                  <CardContent>
+                  <CardContent style={{ paddingLeft: 0 }}>
                     <Typography gutterBottom variant="h6" component="div">
                       {item.title}
                     </Typography>

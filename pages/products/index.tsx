@@ -1,6 +1,7 @@
 import { useCategoryList } from "@/hooks/react-query/query-hooks/productQuery.hooks";
 import { primaryColors } from "@/themes/_muiPalette";
 import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
+import Loader from "@/ui/Loader/Loder";
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -51,6 +52,19 @@ export const PriceContainer = styled(Container)`
   padding: 0 !important;
 `;
 
+// export const LoaderContainer = styled(Container)`
+// width: 50px;
+//   aspect-ratio: 1;
+//   border-radius: 50%;
+//   padding: 6px;
+//   background:
+//     conic-gradient(from 135deg at top,currentColor 90deg, #0000 0) 0 calc(50% - 4px)/17px 8.5px,
+//     radial-gradient(farthest-side at bottom left,#0000 calc(100% - 6px),currentColor calc(100% - 5px) 99%,#0000) top right/50%  50% content-box content-box,
+//     radial-gradient(farthest-side at top        ,#0000 calc(100% - 6px),currentColor calc(100% - 5px) 99%,#0000) bottom   /100% 50% content-box content-box;
+//   background-repeat: no-repeat;
+//   animation: l11 1s infinite linear;
+// `
+
 function Products() {
   // Category List
   const { data: categoryList, refetch: categoryListRefetch } =
@@ -73,6 +87,8 @@ function Products() {
   const maxCahnge = (e: any) => setMaxPrice(e.target.value);
   const url = "https://api.escuelajs.co/api/v1";
 
+  const [isloading, setIsloading] = useState(false);
+
   type SearchParams = {
     title?: string;
     price?: number;
@@ -82,10 +98,13 @@ function Products() {
   };
 
   const getSearchList = async (params: SearchParams) => {
+    setIsloading(true);
     try {
       const res = await axios.get(`${url}/products`, { params });
+      setIsloading(false);
       return res.data;
     } catch (error: any) {
+      setIsloading(false);
       throw new Error("Error occurred while fetching data:", error);
     }
   };
@@ -114,12 +133,6 @@ function Products() {
   const handleApplyFilters = async () => {
     const response = await getSearchList(paramBody);
     setSearchListData(response);
-
-    setProductName("");
-    setProductPrice("");
-    setMinPrice(0);
-    setMaxPrice(0);
-    setCategoryId(0);
     // try {
 
     // } catch (error) {}
@@ -243,9 +256,11 @@ function Products() {
           <Grid item xs={8} md={8}>
             <StyledContainer>
               <Grid container spacing={4}>
-                {searchListData.length > 0 ? (
+                {isloading ? (
+                  <Loader />
+                ) : searchListData.length > 0 ? (
                   searchListData.map((item: any) => (
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={6} key={item.id}>
                       <Card>
                         <CardActionArea>
                           <CardMedia
