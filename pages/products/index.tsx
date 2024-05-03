@@ -98,7 +98,7 @@ function Products() {
     price_max: 0,
     categoryId: 0
   });
-  const { title, price, price_min, price_max, categoryId } = paramBody;
+  // const { title, price, price_min, price_max, categoryId } = paramBody;
 
   useEffect(() => {
     setParamBody((prevParamBody) => ({
@@ -139,7 +139,7 @@ function Products() {
             <StyledContainer>
               <Typography variant="body1">Filters</Typography>
             </StyledContainer>
-            <DividedContainer></DividedContainer>
+            <DividedContainer />
             <StyledContainer>
               <TextField
                 id="standard-basic"
@@ -149,7 +149,7 @@ function Products() {
                 value={productName}
               />
             </StyledContainer>
-            <DividedContainer></DividedContainer>
+            <DividedContainer />
             <StyledContainer>
               <TextField
                 id="standard-basic"
@@ -159,7 +159,7 @@ function Products() {
                 value={productPrice}
               />
             </StyledContainer>
-            <DividedContainer></DividedContainer>
+            <DividedContainer />
             <StyledContainer>
               <Typography variant="body2">Categories</Typography>
               <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
@@ -174,7 +174,7 @@ function Products() {
                   id="demo-simple-select-standard"
                   label="Category"
                   onChange={categoryCahnge}
-                  value={categoryId}
+                  value={categoryid}
                 >
                   {categoryList?.map((item: any) => (
                     <MenuItem value={item?.id}>{item?.name}</MenuItem>
@@ -182,7 +182,7 @@ function Products() {
                 </Select>
               </FormControl>
             </StyledContainer>
-            <DividedContainer></DividedContainer>
+            <DividedContainer />
             <StyledContainer>
               <Typography variant="body2">Price</Typography>
               <PriceContainer>
@@ -200,7 +200,7 @@ function Products() {
                     onChange={minCahnge}
                     value={minPrice}
                   >
-                    {rangeArray.map((item, index) => (
+                    {rangeArray.map((item) => (
                       <MenuItem value={item}>{item}</MenuItem>
                     ))}
                   </Select>
@@ -220,14 +220,14 @@ function Products() {
                     onChange={maxCahnge}
                     value={maxPrice}
                   >
-                    {rangeArray.map((item, index) => (
+                    {rangeArray.map((item) => (
                       <MenuItem value={item}>{item}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>
               </PriceContainer>
             </StyledContainer>
-            <DividedContainer></DividedContainer>
+            <DividedContainer />
             <StyledContainer>
               <CustomButtonPrimary
                 variant="contained"
@@ -245,7 +245,7 @@ function Products() {
               <Grid container spacing={4}>
                 {searchListData.length > 0 ? (
                   searchListData.map((item: any, index: number) => (
-                    <Grid item xs={12} md={6} key={index}>
+                    <Grid item xs={12} md={6}>
                       <Card>
                         <CardActionArea>
                           <CardMedia
@@ -298,7 +298,7 @@ function Products() {
                     component="div"
                     style={{ marginTop: 40, marginLeft: 40 }}
                   >
-                    {"No data found"}
+                    No data found
                   </Typography>
                 )}
               </Grid>
